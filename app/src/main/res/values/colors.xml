@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) Rene Škuljević in Zagreb 2018
+  ~
+  ~ All rights reserved.
+  -->
+
+<resources>
+    <color name="ColorPrimary">#00004c</color>
+    <color name="ColorPrimaryDark">#00000c</color>
+    <color name="ColorGrey">#6f7073</color>
+    <color name="ColorGreyLight">#9f9f9f</color>
+    <color name="ColorGreyLighter">#bbbbbb</color>
+    <color name="ColorGreyDark">#999999</color>
+    <color name="ColorGreyBg">#f5f5f5</color>
+    <color name="ColorBorder">#dedede</color>
+    <color name="ColorBorderDark">#b3b3b3</color>
+    <color name="ColorBlack">#212121</color>
+    <color name="ColorBlackOpacity">#26000000</color>
+    <color name="ColorBlackLight">#414141</color>
+    <color name="ColorWhite">#ffffff</color>
+    <color name="ColorInactiveGray">#c8ccd2</color>
+    <color name="ColorWhiteOpacity">#B3ffffff</color>
+    <color name="ColorLabelPlaceholder">#b4b5b8</color>
+    <color name="ColorBannerTitle">#f0f0f7</color>
+    <color name="ColorPassiveIcon">#767f93</color>
+    <color name="ColorBackground">#f6f6f6</color>
+    <color name="ColorDarkGrey">#999999</color>
+    <color name="ColorLightGrey">#777777</color>
+    <color name="ColorBorderRegular">#dedede</color>
+    <color name="ColorBorderStrong">#b3b3b3</color>
+
+</resources>

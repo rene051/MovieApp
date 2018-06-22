@@ -1,0 +1,26 @@
+<!--
+  ~ Copyright (c) Rene Škuljević in Zagreb 2018
+  ~
+  ~ All rights reserved.
+  -->
+
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <string name="app_name">DemoMovieApp</string>
+    <string name="dot_separator">•</string>
+
+    <string name="start_typing">Start typing…</string>
+    <string name="search_movies">Search movies</string>
+    <string name="most_popular">Most popular</string>
+    <string name="enter_favourite_name">Enter favourite name</string>
+    <string name="choose_favourite">Choose favourite</string>
+    <string name="save">Save</string>
+    <string name="crete_new_favourite">Crete new favourite</string>
+    <string name="no_internet_connection">No internet connection</string>
+    <string name="no_internet_desc">Internet connection have been lost. Connect to the internet to acces data.</string>
+    <string name="try_again">Try again</string>
+    <string name="new_list">New list</string>
+    <string name="ok">OK</string>
+
+
+</resources>

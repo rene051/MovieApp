@@ -1,0 +1,128 @@
+/*
+ * Copyright (c) Rene Škuljević in Zagreb 2018
+ *
+ * All rights reserved.
+ */
+
+//allprojects{
+//    repositories {
+//        maven { url 'https://maven.google.com' }
+//        maven { url 'https://maven.fabric.io/public' }
+////        maven { url 'https://maven.google.com' }
+//        maven { url "https://jitpack.io" }
+//    }
+//}
+
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'kotlin-kapt'
+
+
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId "com.demo.movieapp"
+        minSdkVersion 19
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    kotlinOptions {
+        languageVersion = "1.2"
+    }
+
+    sourceSets {
+        test.java.srcDirs += 'src/test/kotlin'
+        androidTest.java.srcDirs += 'src/androidTest/kotlin'
+    }
+
+    kapt {
+        generateStubs = true
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation('com.crashlytics.sdk.android:crashlytics:2.9.2@aar') {
+        transitive = true
+    }
+
+    def dependencies = rootProject.ext.dependencies
+
+    implementation dependencies.dagger
+    implementation dependencies.butterKnife
+    implementation dependencies.rxJava
+    implementation dependencies.rxAndroid
+    implementation dependencies.supportAppcompat
+    implementation dependencies.supportSupport
+    implementation dependencies.supportDesign
+    implementation dependencies.recyclerView
+    implementation dependencies.javaxInject
+    implementation dependencies.gson
+    implementation dependencies.retrofit2
+    implementation dependencies.retrofit2rxJava2
+    implementation dependencies.retrofit2gson
+    implementation dependencies.constraintLayout
+    implementation dependencies.timber
+    implementation dependencies.cinnamon
+    implementation dependencies.design
+    implementation dependencies.pagerIndicator
+    implementation dependencies.deviceInfo
+    implementation dependencies.bottomNavigationBar
+    implementation dependencies.location
+    implementation dependencies.picasso
+    implementation dependencies.jodaTime
+    implementation dependencies.topDialog
+    implementation dependencies.multidex
+
+
+//    implementation 'com.jakewharton:kotterknife:0.1.0-SNAPSHOT'
+
+//    implementation (dependencies.crashlytics) { transitive = true; }
+
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+
+    implementation 'com.google.android.gms:play-services-maps:15.0.1'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    kapt dependencies.daggerCompiler
+    kapt dependencies.butterKnifeCompiler
+
+    kaptAndroidTest dependencies.daggerCompiler
+    kaptAndroidTest dependencies.butterKnifeCompiler
+
+
+    androidTestImplementation('com.android.support.test.espresso:espresso-contrib:2.2') {
+        exclude module: 'support-annotations'
+        exclude group: 'com.android.support', module: 'appcompat'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude module: 'recyclerview-v7'
+    }
+
+
+    testImplementation('com.android.support.test.espresso:espresso-contrib:2.2') {
+        exclude module: 'support-annotations'
+        exclude group: 'com.android.support', module: 'appcompat'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude module: 'recyclerview-v7'
+    }
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+
+
+    testImplementation 'com.android.support.test:runner:1.0.2'
+//    testImplementation 'com.android.support.test:runner:1.0.1'
+    testImplementation 'com.android.support.test:monitor:1.0.2'
+}

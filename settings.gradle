@@ -1,0 +1,7 @@
+/*
+ * Copyright (c) Rene Škuljević in Zagreb 2018
+ *
+ * All rights reserved.
+ */
+
+include ':app'
