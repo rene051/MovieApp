@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) Rene Škuljević in Zagreb 2018
+  ~
+  ~ All rights reserved.
+  -->
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/ColorWhite"
+    >
+
+    <RelativeLayout
+        android:id="@+id/headerRelativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <TextView
+            android:id="@+id/chooseListTitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/choose_favourite"
+            android:textSize="16sp"
+            android:textColor="@color/ColorBlackLight"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="16dp"
+            />
+
+        <TextView
+            android:id="@+id/doneTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:text="Done"
+            android:textSize="15sp"
+            android:textColor="@color/ColorBlackLight"
+            android:layout_marginEnd="16dp"
+            />
+
+        <View
+            android:id="@+id/separatorView"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/ColorBorder"
+            android:layout_alignParentBottom="true"
+            />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/favouriteRelativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_below="@+id/headerRelativeLayout"
+        >
+
+        <ImageView
+            android:id="@+id/plusIconImageView"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="16dp"
+            android:src="@drawable/create_new_list"
+            />
+
+        <TextView
+            android:id="@+id/createListTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="@color/ColorGreyLight"
+            android:layout_toEndOf="@+id/plusIconImageView"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="16dp"
+            android:text="@string/crete_new_favourite"
+            />
+
+        <View
+            android:id="@+id/separator2View"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/ColorBorder"
+            android:layout_alignParentBottom="true"
+            />
+
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/bottomFragmentWishListRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/favouriteRelativeLayout"
+        >
+    </android.support.v7.widget.RecyclerView>
+
+
+</RelativeLayout>

@@ -1,0 +1,79 @@
+allprojects {
+    repositories {
+    maven { url "https://maven.google.com" }
+        jcenter {
+            url "http://jcenter.bintray.com/"
+        }
+ maven { url "https://jitpack.io" }
+        jcenter()
+    }
+}
+
+ext{
+    //Android
+    androidBuildToolsVersion = "27.0.2"
+    androidMinSdkVersion = 19
+    androidTargetSdkVersion = 27
+    androidCompileSdkVersion = 27
+
+    //Libraries
+    constraintLayoutVersion = '1.0.2'
+    daggerVersion = '2.5'
+    butterKnifeVersion = '8.4.0'
+    kotterKnifeVersion = '0.1.0-SNAPSHOT'
+    androidSupportVersion = '26.1.0'
+    androidSupportDesignVersion = '27.1.1'
+    recyclerViewVersion = '26.1.0'
+    rxJava2Version = '2.1.3'
+    rxJavaVersion = '1.1.6'
+    rxAndroidVersion = '2.0.1'
+    javaxInjectVersion = '1'
+    gsonVersion = '2.7'
+    crashlyticsVersion = '2.6.8@aar'
+    retrofit2Version = '2.3.0'
+    cinnamonLibraryVersion = '1.0.5'
+    timberVersion = '4.6.1'
+    pagerIndicator = '1.0.0'
+    deviceInfo = '1.1.7'
+    bottomNavigationBarVersion = '1.2.4'
+    picassoVersion = '2.71828'
+    locationVersion = '15.0.0'
+    jodaTimeVersion = '2.9.7'
+    topDialogVersion = '1.11'
+    multidexVersion = '1.0.1'
+
+    dependencies = [
+                daggerCompiler:     "com.google.dagger:dagger-compiler:${daggerVersion}",
+                dagger:             "com.google.dagger:dagger:${daggerVersion}",
+                butterKnifeCompiler:"com.jakewharton:butterknife-compiler:${butterKnifeVersion}",
+                butterKnife:        "com.jakewharton:butterknife:${butterKnifeVersion}",
+                kotterKnife:        "com.jakewharton:kotterknife:${kotterKnifeVersion}",
+                supportDesign:   "com.android.support:design:${androidSupportDesignVersion}",
+                supportAppcompat:   "com.android.support:appcompat-v7:${androidSupportVersion}",
+                supportSupport:     "com.android.support:support-v4:${androidSupportVersion}",
+                recyclerView:       "com.android.support:recyclerview-v7:${recyclerViewVersion}",
+                rxJava:             "io.reactivex.rxjava2:rxjava:${rxJava2Version}",
+                rxAndroid:          "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
+                crashlytics:        "com.crashlytics.sdk.android:crashlytics:${crashlyticsVersion}",
+                retrofit2:          "com.squareup.retrofit2:retrofit:${retrofit2Version}",
+                retrofit2rxJava2:   "com.squareup.retrofit2:adapter-rxjava2:${retrofit2Version}",
+                retrofit2gson:      "com.squareup.retrofit2:converter-gson:${retrofit2Version}",
+                cinnamon:           "com.cinnamon.library:utils:${cinnamonLibraryVersion}",
+                constraintLayout:   "com.android.support.constraint:constraint-layout:${constraintLayoutVersion}",
+                timber:             "com.jakewharton.timber:timber:${timberVersion}",
+                design:             "com.android.support:design:${androidSupportVersion}",
+    //            rxJava:             "io.reactivex:rxjava:${rxJavaVersion}",
+    //            rxAndroid:          "io.reactivex.rxjava2:rxandroid::${rxAndroidVersion}",
+                javaxInject:        "javax.inject:javax.inject:${javaxInjectVersion}",
+                gson:               "com.google.code.gson:gson:${gsonVersion}",
+                pagerIndicator:     "com.romandanylyk:pageindicatorview:${pagerIndicator}@aar",
+                bottomNavigationBar:"com.github.ittianyu:BottomNavigationViewEx:${bottomNavigationBarVersion}",
+                deviceInfo:         "com.jaredrummler:android-device-names:${deviceInfo}",
+                location:           "com.google.android.gms:play-services-location:${locationVersion}",
+                picasso:            "com.squareup.picasso:picasso:${picassoVersion}",
+                jodaTime:           "joda-time:joda-time:${jodaTimeVersion}",
+                topDialog:          "com.orhanobut:dialogplus:${topDialogVersion}@aar",
+                multidex:           "com.android.support:multidex:${multidexVersion}",
+            ]
+
+}

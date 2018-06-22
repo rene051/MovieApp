@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) Rene Škuljević in Zagreb 2018
+  ~
+  ~ All rights reserved.
+  -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/ColorWhite">
+
+    <ImageView
+        android:id="@+id/noInternetImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:src="@mipmap/no_no_internet"
+        android:layout_centerHorizontal="true"
+     />
+
+    <TextView
+        android:id="@+id/noInternetTitleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/noInternetImageView"
+        android:layout_centerHorizontal="true"
+        android:text="@string/no_internet_connection"
+        android:textColor="@color/ColorBlack"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/noInternetDescTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/noInternetTitleTextView"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/no_internet_desc"
+        android:textAlignment="center" />
+
+    <Button
+        android:id="@+id/tryAgainNoInternetButton"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/noInternetDescTextView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/button_blue_rounded"
+        android:text="@string/try_again"
+        android:textColor="@color/ColorBannerTitle" />
+
+</RelativeLayout>

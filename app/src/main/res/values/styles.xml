@@ -1,0 +1,49 @@
+<!--
+  ~ Copyright (c) Rene Škuljević in Zagreb 2018
+  ~
+  ~ All rights reserved.
+  -->
+
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/ColorWhite</item>
+        <item name="colorPrimaryDark">@color/ColorBlack</item>
+        <item name="actionBarStyle">@style/ActionBarStyle</item>
+        <item name="android:homeAsUpIndicator">@drawable/ic_back_dark</item>
+        <item name="colorControlActivated">@color/ColorPrimary</item>
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="colorAccent">@color/ColorPrimary</item>
+        <item name="android:actionMenuTextColor">@color/ColorBlackLight</item>
+        <!--<item name="android:windowTranslucentNavigation">true</item>-->
+    </style>
+
+    <style name="AppThemeNoActionBarSplash" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/ColorPrimary</item>
+        <item name="colorPrimaryDark">@color/ColorPrimaryDark</item>
+    </style>
+
+    <style name="AppThemeNoActionBarMain" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/ColorWhite</item>
+        <item name="colorPrimaryDark">@color/ColorBlack</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="colorAccent">@color/ColorWhite</item>
+    </style>
+
+
+    <style name="ActionBarStyle" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+        <item name="background">@color/ColorWhite</item>
+        <item name="titleTextStyle">@style/ActionBarTitleStyle</item>
+    </style>
+
+    <style name="ActionBarTitleStyle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textSize">19sp</item>
+        <item name="android:textColor">@color/ColorBlackLight</item>
+    </style>
+
+</resources>
