@@ -8,22 +8,20 @@ package com.demo.movieapp.view.adapters
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.support.v4.content.ContextCompat
 import android.support.v7.widget.CardView
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.demo.movieapp.R
-import com.demo.movieapp.data.api.APIConstants.Companion.IMAGE_BASE_URL
 import com.demo.movieapp.data.models.FavouriteModel
+import com.demo.movieapp.data.models.HomeModel
 import com.demo.movieapp.domain.listeners.FavouriteAdapterClickListener
-import com.squareup.picasso.Picasso
 
 /**
  * Created by Rene on 21.06.18.
@@ -50,34 +48,20 @@ class FavouriteAdapter(private var activity: Activity,
         holder.favouriteItemTitle.text = item.title.toString()
         holder.favouriteItemCount.text = item.items?.size.toString()
 
-        if (item.items!!.size == 0) {
-            holder.favouriteImageOne.setImageDrawable(ContextCompat.getDrawable(activity, R.mipmap.ic_movie_logo))
-            holder.cardViewOne.visibility = View.VISIBLE
+        if(item.items!!.size != 0) {
+            holder.cardViewEmpty.visibility = View.GONE
         }
 
-        if (item.items!!.size > 0) {
-            holder.cardViewOne.visibility = View.VISIBLE
-            Picasso.get().load(IMAGE_BASE_URL + item.items!![0].posterPath).fit().centerCrop().into(holder.favouriteImageOne)
-        }
+        val favouriteAdapter = FavouriteItemAdapter(activity, item.items!!)
 
-        if (item.items!!.size > 1) {
-            holder.cardViewTwo.visibility = View.VISIBLE
-            Picasso.get().load(IMAGE_BASE_URL + item.items!![1].posterPath).fit().centerCrop().into(holder.favouriteImageTwo)
-        }
-
-        if (item.items!!.size > 2) {
-            holder.cardViewThree.visibility = View.VISIBLE
-            Picasso.get().load(IMAGE_BASE_URL + item.items!![2].posterPath).fit().centerCrop().into(holder.favouriteImageThree)
-        }
-
-        if (item.items!!.size > 3) {
-            holder.cardViewFour.visibility = View.VISIBLE
-            Picasso.get().load(IMAGE_BASE_URL + item.items!![3].posterPath).fit().centerCrop().into(holder.favouriteImageFour)
-        }
+        holder.favouriteRecyclerView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+        holder.favouriteRecyclerView.setHasFixedSize(true)
+        holder.favouriteRecyclerView.adapter = favouriteAdapter
 
         holder.favouriteMainRelativeLayout.setOnClickListener {
             clickListener.onFavouriteClicked(item)
         }
+
     }
 
     class AllFavouriteHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -91,29 +75,11 @@ class FavouriteAdapter(private var activity: Activity,
         @BindView(R.id.favouriteItemCount)
         lateinit var favouriteItemCount: TextView
 
-        @BindView(R.id.cardViewOne)
-        lateinit var cardViewOne: CardView
+        @BindView(R.id.favouriteRecyclerView)
+        lateinit var favouriteRecyclerView: RecyclerView
 
-        @BindView(R.id.favouriteImageOne)
-        lateinit var favouriteImageOne: ImageView
-
-        @BindView(R.id.cardViewTwo)
-        lateinit var cardViewTwo: CardView
-
-        @BindView(R.id.favouriteImageTwo)
-        lateinit var favouriteImageTwo: ImageView
-
-        @BindView(R.id.cardViewThree)
-        lateinit var cardViewThree: CardView
-
-        @BindView(R.id.favouriteImageThree)
-        lateinit var favouriteImageThree: ImageView
-
-        @BindView(R.id.cardViewFour)
-        lateinit var cardViewFour: CardView
-
-        @BindView(R.id.favouriteImageFour)
-        lateinit var favouriteImageFour: ImageView
+        @BindView(R.id.cardViewEmpty)
+        lateinit var cardViewEmpty: CardView
 
         init {
             ButterKnife.bind(this, itemView)

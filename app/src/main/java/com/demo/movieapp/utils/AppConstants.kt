@@ -16,6 +16,7 @@ interface AppConstants {
         //Item types
         const val MOVIE_TYPE = 1
         const val LOADING_ITEM_TYPE = 2
+        const val EMPTY_LIST = 3
 
         //Extras
         const val MOVIE_EXTRA = "MOVIE_EXTRA"
