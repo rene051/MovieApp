@@ -16,6 +16,12 @@ interface NetworkApi {
 
     fun getPopularMovie(apiKey: String, page: Int): Single<HomeModel>
 
+    fun getNowPlayingMovie(apiKey: String, page: Int): Single<HomeModel>
+
+    fun getTopRatedMovie(apiKey: String, page: Int): Single<HomeModel>
+
+    fun getUpcomingMovie(apiKey: String, page: Int): Single<HomeModel>
+
     fun searchMovies(apiKey: String, search: String): Single<HomeModel>
 
 }

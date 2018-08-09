@@ -32,5 +32,4 @@ class HomeModule(private val homeView: HomeView) {
     @AppScope
     @Provides
     fun providesHomeInteractor(interactor: HomeInteractorImpl): HomeInteractor = interactor
-
 }

@@ -12,6 +12,9 @@ import android.content.DialogInterface
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AlertDialog
 import com.demo.movieapp.R
+import android.view.Window
+import android.widget.RelativeLayout
+import android.widget.TextView
 
 /**
  * Created by Rene on 21.06.18.

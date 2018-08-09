@@ -31,5 +31,11 @@ interface AppConstants {
 
         //Error types
         const val ERROR_NETWORK = "error_network"
+
+        //Constants
+        const val NOW_PLAYING = "NOW_PLAYING"
+        const val POPULAR = "POPULAR"
+        const val TOP_RATED = "TOP_RATED"
+        const val UPCOMING = "UPCOMING"
     }
 }

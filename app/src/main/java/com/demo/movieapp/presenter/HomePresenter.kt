@@ -13,6 +13,12 @@ interface HomePresenter: BasePresenter {
 
     fun getPopularMovie(page: Int)
 
+    fun getNowPlayingMovie(page: Int)
+
+    fun getTopRatedMovie(page: Int)
+
+    fun getUpcomingMovie(page: Int)
+
     fun searchMovies(search: String)
 
 }

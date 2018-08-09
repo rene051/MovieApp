@@ -17,6 +17,9 @@ interface APIConstants {
         const val IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500"
 
         const val MOVIE_POPULAR = "3/movie/popular"
+        const val MOVIE_NOW_PLAYING = "3/movie/now_playing"
+        const val MOVIE_TOP_RATED = "3/movie/top_rated"
+        const val MOVIE_UPCOMING = "3//movie/upcoming"
         const val SEARCH_MOVIE = "3/search/movie"
 
         const val apiKey = "c9f3368df47f1e3b16923681894bf09c"

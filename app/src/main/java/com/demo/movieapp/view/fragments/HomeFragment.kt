@@ -7,12 +7,14 @@
 package com.demo.movieapp.view.fragments
 
 
+import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.*
+import android.widget.RelativeLayout
 import com.cinnamon.utils.network.CinnamonNetwork
 import com.demo.movieapp.R
 import com.demo.movieapp.data.models.ErrorResponseModel
@@ -22,6 +24,10 @@ import com.demo.movieapp.di.module.HomeModule
 import com.demo.movieapp.domain.listeners.HomeAdapterClickListener
 import com.demo.movieapp.presenter.HomePresenter
 import com.demo.movieapp.utils.AppConstants.Companion.MOVIE_EXTRA
+import com.demo.movieapp.utils.AppConstants.Companion.NOW_PLAYING
+import com.demo.movieapp.utils.AppConstants.Companion.POPULAR
+import com.demo.movieapp.utils.AppConstants.Companion.TOP_RATED
+import com.demo.movieapp.utils.AppConstants.Companion.UPCOMING
 import com.demo.movieapp.utils.helpers.AnimationHelper
 import com.demo.movieapp.utils.helpers.ErrorCodeHelper
 import com.demo.movieapp.view.BaseFragment
@@ -39,9 +45,11 @@ class HomeFragment : BaseFragment(), HomeView, HomeAdapterClickListener {
     @Inject
     lateinit var homePresenter: HomePresenter
 
+    private var addListItem: MenuItem? = null
     private lateinit var homeAdapter: HomeMainAdapter
     private lateinit var layoutManager: LinearLayoutManager
     private lateinit var homeModel: HomeModel
+    private lateinit var chosenFilter: String
     private var loading = false
     private var noInternet = true
 
@@ -81,6 +89,103 @@ class HomeFragment : BaseFragment(), HomeView, HomeAdapterClickListener {
         requireActivity().invalidateOptionsMenu()
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        menu?.clear()
+        inflater?.inflate(R.menu.filter_home_list, menu)
+
+        addListItem = menu?.findItem(R.id.add_filter_action)
+
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
+        when (item?.itemId) {
+            R.id.add_filter_action -> {
+                openDialogFilter()
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun openDialogFilter() {
+
+        val dialog = Dialog(requireContext())
+        dialog.setContentView(R.layout.filter_home_list_dialog)
+
+        val nowPlaying = dialog.findViewById<RelativeLayout>(R.id.getNowPlayingRelativeLayout)
+        val popular = dialog.findViewById<RelativeLayout>(R.id.getPopularRelativeLayout)
+        val topRated = dialog.findViewById<RelativeLayout>(R.id.getTopRatedRelativeLayout)
+        val upcoming = dialog.findViewById<RelativeLayout>(R.id.getUpcomingRelativeLayout)
+
+        nowPlaying.setOnClickListener {
+            chosenFilter = NOW_PLAYING
+            dialog.dismiss()
+            getMovies()
+        }
+
+        popular.setOnClickListener {
+            chosenFilter = POPULAR
+            dialog.dismiss()
+            getMovies()
+        }
+
+        topRated.setOnClickListener {
+            chosenFilter = TOP_RATED
+            dialog.dismiss()
+            getMovies()
+        }
+
+        upcoming.setOnClickListener {
+            chosenFilter = UPCOMING
+            dialog.dismiss()
+            getMovies()
+        }
+
+
+        dialog.show()
+    }
+
+    private fun getMovies() {
+
+        when (chosenFilter) {
+            POPULAR -> {
+                (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.get_popular)
+                getPopularMovie()
+            }
+            NOW_PLAYING -> {
+                (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.get_now_playing)
+                getNowPlayingMovie()
+            }
+            TOP_RATED -> {
+                (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.get_top_rated)
+                getTopRatedMovie()
+            }
+            UPCOMING -> {
+                (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.get_upcoming)
+                getUpcomingMovie()
+            }
+        }
+
+    }
+
+    private fun getNextPageMovies() {
+        when (chosenFilter) {
+            POPULAR -> {
+                homePresenter.getPopularMovie(homeModel.page!! + 1)
+            }
+            NOW_PLAYING -> {
+                homePresenter.getNowPlayingMovie(homeModel.page!! + 1)
+            }
+            TOP_RATED -> {
+                homePresenter.getTopRatedMovie(homeModel.page!! + 1)
+            }
+            UPCOMING -> {
+                homePresenter.getUpcomingMovie(homeModel.page!! + 1)
+
+            }
+        }
+    }
 
     private fun getPopularMovie() {
         if (CinnamonNetwork.isNetworkAvailable(requireContext())) {
@@ -89,12 +194,35 @@ class HomeFragment : BaseFragment(), HomeView, HomeAdapterClickListener {
         }
     }
 
+    private fun getNowPlayingMovie() {
+        if (CinnamonNetwork.isNetworkAvailable(requireContext())) {
+            homeProgressBar.visibility = View.VISIBLE
+            homePresenter.getNowPlayingMovie(1)
+        }
+    }
+
+    private fun getTopRatedMovie() {
+        if (CinnamonNetwork.isNetworkAvailable(requireContext())) {
+            homeProgressBar.visibility = View.VISIBLE
+            homePresenter.getTopRatedMovie(1)
+        }
+    }
+
+    private fun getUpcomingMovie() {
+        if (CinnamonNetwork.isNetworkAvailable(requireContext())) {
+            homeProgressBar.visibility = View.VISIBLE
+            //TODO check error
+            //homePresenter.getUpcomingMovie(1)
+        }
+    }
+
+
     override fun onItemClicked(item: HomeModel.MovieModel) {
         setMovieActivity(item)
     }
 
     override fun movieFetchSuccess(item: HomeModel) {
-        if(isAdded) {
+        if (isAdded) {
             homeProgressBar.visibility = View.INVISIBLE
             homeModel = item
             setAdapter()
@@ -121,7 +249,7 @@ class HomeFragment : BaseFragment(), HomeView, HomeAdapterClickListener {
         homeAdapter.removeLoadingFooter()
     }
 
-    private fun setMovieActivity(item: HomeModel.MovieModel){
+    private fun setMovieActivity(item: HomeModel.MovieModel) {
         startActivity(Intent(activity, MovieItemActivity::class.java)
                 .putExtra(MOVIE_EXTRA, item))
         AnimationHelper.enterAnimation(activity)
@@ -137,6 +265,7 @@ class HomeFragment : BaseFragment(), HomeView, HomeAdapterClickListener {
         pagination()
     }
 
+
     private fun pagination() {
 
         homeRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -150,10 +279,10 @@ class HomeFragment : BaseFragment(), HomeView, HomeAdapterClickListener {
                 if (dy > 0) { //dy scrolling down
                     if ((firstVisibleItemPosition >= myTotalCount) && firstVisibleItemPosition > 0
                             && myTotalCount > 0 && (myTotalCount + 2) <= totalItemCount) {
-                        if(!loading) {
+                        if (!loading) {
                             if (CinnamonNetwork.isNetworkAvailable(context)) {
                                 if (isAdded) {
-                                    homePresenter.getPopularMovie(homeModel.page!! + 1)
+                                    getNextPageMovies()
                                     addLoadingFooter()
                                     loading = true
                                     noInternet = true

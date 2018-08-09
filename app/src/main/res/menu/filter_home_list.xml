@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) Rene Škuljević in Zagreb 2018
+  ~
+  ~ All rights reserved.
+  -->
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/add_filter_action"
+        android:icon="@drawable/ic_filter_home"
+        android:title="Filter list"
+        app:showAsAction="always"
+        />
+
+</menu>

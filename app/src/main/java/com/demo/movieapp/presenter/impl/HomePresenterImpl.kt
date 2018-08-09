@@ -67,6 +67,78 @@ constructor(private val context: Context, private val profileView: HomeView,
                 })
     }
 
+    override fun getNowPlayingMovie(page: Int) {
+        networkApi.getNowPlayingMovie(apiKey, page)
+                .subscribeOn(subscribeScheduler)
+                .observeOn(observeScheduler)
+                .subscribe(object : SingleObserver<HomeModel> {
+                    override fun onSubscribe(d: Disposable) {
+
+                    }
+
+                    override fun onSuccess(t: HomeModel) {
+                        if(t.page == 1) {
+                            profileView.movieFetchSuccess(t)
+                        } else {
+                            profileView.removeLoadingFooter()
+                            profileView.moviePaginationSuccess(t)
+                        }
+                    }
+
+                    override fun onError(e: Throwable) {
+                        profileView.movieFetchFailed(ErrorCodeHelper.castErrorResponse(e))
+                    }
+
+                })    }
+
+    override fun getTopRatedMovie(page: Int) {
+        networkApi.getTopRatedMovie(apiKey, page)
+                .subscribeOn(subscribeScheduler)
+                .observeOn(observeScheduler)
+                .subscribe(object : SingleObserver<HomeModel> {
+                    override fun onSubscribe(d: Disposable) {
+
+                    }
+
+                    override fun onSuccess(t: HomeModel) {
+                        if(t.page == 1) {
+                            profileView.movieFetchSuccess(t)
+                        } else {
+                            profileView.removeLoadingFooter()
+                            profileView.moviePaginationSuccess(t)
+                        }
+                    }
+
+                    override fun onError(e: Throwable) {
+                        profileView.movieFetchFailed(ErrorCodeHelper.castErrorResponse(e))
+                    }
+
+                })    }
+
+    override fun getUpcomingMovie(page: Int) {
+        networkApi.getUpcomingMovie(apiKey, page)
+                .subscribeOn(subscribeScheduler)
+                .observeOn(observeScheduler)
+                .subscribe(object : SingleObserver<HomeModel> {
+                    override fun onSubscribe(d: Disposable) {
+
+                    }
+
+                    override fun onSuccess(t: HomeModel) {
+                        if(t.page == 1) {
+                            profileView.movieFetchSuccess(t)
+                        } else {
+                            profileView.removeLoadingFooter()
+                            profileView.moviePaginationSuccess(t)
+                        }
+                    }
+
+                    override fun onError(e: Throwable) {
+                        profileView.movieFetchFailed(ErrorCodeHelper.castErrorResponse(e))
+                    }
+
+                })    }
+
     override fun searchMovies(search: String) {
         networkApi.searchMovies(apiKey, search)
                 .subscribeOn(subscribeScheduler)
