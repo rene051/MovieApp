@@ -10,6 +10,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -61,8 +62,11 @@ class HomeMainAdapter(private var activity: Activity,
                 holder as MovieListHolder
                 val item = movieList[position]
 
+                Log.e("movieInfo", item.title + " " + item.id)
+
                 holder.titleTextView.text = item.title
                 Picasso.get().load(IMAGE_BASE_URL + item.backdropPath).fit().centerCrop().into(holder.homeItemImageView)
+
                 holder.homeItemRelativeLayout.setOnClickListener {
                     clickListener.onItemClicked(item)
                 }

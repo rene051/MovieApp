@@ -13,6 +13,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.*
 import android.widget.RelativeLayout
 import com.cinnamon.utils.network.CinnamonNetwork
@@ -42,7 +43,6 @@ import kotlinx.android.synthetic.main.fragment_home.*
  * Created by Rene on 21.06.18.
  */
 class HomeFragment : BaseFragment(), HomeView, HomeAdapterClickListener {
-
 
     @Inject
     lateinit var homePresenter: HomePresenter
@@ -216,7 +216,6 @@ class HomeFragment : BaseFragment(), HomeView, HomeAdapterClickListener {
             homePresenter.getUpcomingMovie(1)
         }
     }
-
 
     override fun onItemClicked(item: HomeModel.MovieModel) {
         setMovieActivity(item)

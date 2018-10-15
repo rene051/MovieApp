@@ -1,9 +1,12 @@
 package com.demo.movieapp.view.activities
 
+import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.Window
+import android.widget.ImageView
 import com.cinnamon.utils.date.CinnamonDate
 import com.demo.movieapp.R
 import com.demo.movieapp.data.api.APIConstants.Companion.IMAGE_BASE_URL
@@ -31,6 +34,8 @@ class MovieItemActivity : BaseActivity(), HomeView {
     @Inject
     lateinit var homePresenter: HomePresenter
 
+    private lateinit var imagePreviewDialog: Dialog
+    private lateinit var imagePreviewImageView: ImageView
     private lateinit var movieItem: HomeModel.MovieModel
     private lateinit var bottomSheetFragment: BottomSheetAddFavouriteFragment
 
@@ -48,16 +53,35 @@ class MovieItemActivity : BaseActivity(), HomeView {
         supportActionBar!!.title = movieItem.title
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         setViews()
+        onClickListeners()
     }
 
     private fun setViews() {
+        imagePreviewDialog = Dialog(this)
+        imagePreviewDialog.window.requestFeature(Window.FEATURE_NO_TITLE)
+        imagePreviewDialog.setContentView(layoutInflater.inflate(R.layout.dialog_image_preview, null))
+
+        imagePreviewImageView = imagePreviewDialog.findViewById(R.id.imagePreviewImageView)
+
         Picasso.get().load(IMAGE_BASE_URL + movieItem.posterPath).fit().centerCrop().into(mainMovieImageView)
+
         if(movieItem.releaseDate != null && movieItem.releaseDate!!.isNotEmpty())  {
             releaseDate.text = CinnamonDate.convertDate(movieItem.releaseDate, "YYYY-MM-dd", "dd MMM YYYY")
         }
+
         ratingTextView.text = movieItem.voteAverage.toString()
         titleTextView.text = movieItem.title
         descriptionTextView.text = movieItem.overview
+    }
+
+    private fun onClickListeners() {
+        mainMovieImageView.setOnClickListener {
+            Picasso.get().load(IMAGE_BASE_URL + movieItem.posterPath).fit().centerCrop().into(imagePreviewImageView)
+            imagePreviewDialog.show()
+        }
+
+
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
