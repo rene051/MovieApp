@@ -34,6 +34,9 @@ class MovieItemActivity : BaseActivity(), HomeView {
     @Inject
     lateinit var homePresenter: HomePresenter
 
+    private var videoFetched: Boolean = false
+    private lateinit var youtubeKey: String
+    private lateinit var shareIntent: Intent
     private lateinit var imagePreviewDialog: Dialog
     private lateinit var imagePreviewImageView: ImageView
     private lateinit var movieItem: HomeModel.MovieModel
@@ -52,6 +55,7 @@ class MovieItemActivity : BaseActivity(), HomeView {
 
         supportActionBar!!.title = movieItem.title
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        homePresenter.getMovieVideo(movieItem.id)
         setViews()
         onClickListeners()
     }
@@ -79,13 +83,11 @@ class MovieItemActivity : BaseActivity(), HomeView {
             Picasso.get().load(IMAGE_BASE_URL + movieItem.posterPath).fit().centerCrop().into(imagePreviewImageView)
             imagePreviewDialog.show()
         }
-
-
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.movie_videos, menu)
+        menuInflater.inflate(R.menu.share_movie, menu)
         menuInflater.inflate(R.menu.favourite_item, menu)
         return super.onCreateOptionsMenu(menu)
     }
@@ -97,11 +99,22 @@ class MovieItemActivity : BaseActivity(), HomeView {
                 return true
             }
             R.id.action_show_videos -> {
-                homePresenter.getMovieVideo(movieItem.id)
+                if(videoFetched) {
+                    startActivity(Intent(this, YoutubeDialogActivity::class.java)
+                            .putExtra("ID", youtubeKey))
+                    AnimationHelper.enterAnimation(this)
+                }
             }
             R.id.action_favourite_movie -> {
                 bottomSheetFragment = BottomSheetAddFavouriteFragment.newInstance(movieItem)
                 bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
+            }
+            R.id.action_share_movie -> {
+                shareIntent = Intent(Intent.ACTION_SEND)
+
+                shareIntent.type = "*/*"
+                shareIntent.putExtra(Intent.EXTRA_TEXT, movieItem.title + "\n\n" + movieItem.overview + "\n\n" + "https://www.youtube.com/watch?v=" + youtubeKey)
+                startActivity(Intent.createChooser(shareIntent, "Share via"))
             }
         }
         return super.onOptionsItemSelected(item)
@@ -115,9 +128,8 @@ class MovieItemActivity : BaseActivity(), HomeView {
     }
 
     override fun videoFetchedSuccess(item: VideoModel) {
-        startActivity(Intent(this, YoutubeDialogActivity::class.java)
-                .putExtra("ID", item.result!![0].key))
-        AnimationHelper.enterAnimation(this)
+        videoFetched = true
+        youtubeKey = item.result!![0].key!!
     }
 
     override fun videoFecthFailed(e: ErrorResponseModel) {
