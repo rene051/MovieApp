@@ -1,29 +1,46 @@
 package com.demo.movieapp.view.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import com.cinnamon.utils.date.CinnamonDate
 import com.demo.movieapp.R
 import com.demo.movieapp.data.api.APIConstants.Companion.IMAGE_BASE_URL
+import com.demo.movieapp.data.models.ErrorResponseModel
 import com.demo.movieapp.data.models.HomeModel
+import com.demo.movieapp.data.models.VideoModel
+import com.demo.movieapp.di.component.DaggerHomeComponent
+import com.demo.movieapp.di.module.HomeModule
+import com.demo.movieapp.presenter.HomePresenter
 import com.demo.movieapp.utils.AppConstants.Companion.MOVIE_EXTRA
 import com.demo.movieapp.utils.helpers.AnimationHelper
+import com.demo.movieapp.utils.helpers.ErrorCodeHelper
 import com.demo.movieapp.view.BaseActivity
 import com.demo.movieapp.view.fragments.BottomSheetAddFavouriteFragment
+import com.demo.movieapp.view.view.HomeView
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_movie.*
+import javax.inject.Inject
 
 /**
  * Created by Rene on 21.06.18.
  */
-class MovieItemActivity : BaseActivity() {
+class MovieItemActivity : BaseActivity(), HomeView {
+
+    @Inject
+    lateinit var homePresenter: HomePresenter
 
     private lateinit var movieItem: HomeModel.MovieModel
     private lateinit var bottomSheetFragment: BottomSheetAddFavouriteFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        DaggerHomeComponent.builder()
+                .appComponent(this.getApplicationComponent())
+                .homeModule(HomeModule(this))
+                .build().inject(this)
+
         setContentView(R.layout.fragment_movie)
 
         movieItem = intent.getSerializableExtra(MOVIE_EXTRA) as HomeModel.MovieModel
@@ -44,6 +61,7 @@ class MovieItemActivity : BaseActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.movie_videos, menu)
         menuInflater.inflate(R.menu.favourite_item, menu)
         return super.onCreateOptionsMenu(menu)
     }
@@ -53,6 +71,9 @@ class MovieItemActivity : BaseActivity() {
             android.R.id.home -> {
                 onBackPressed()
                 return true
+            }
+            R.id.action_show_videos -> {
+                homePresenter.getMovieVideo(movieItem.id)
             }
             R.id.action_favourite_movie -> {
                 bottomSheetFragment = BottomSheetAddFavouriteFragment.newInstance(movieItem)
@@ -67,5 +88,43 @@ class MovieItemActivity : BaseActivity() {
 
         AnimationHelper.exitAnimation(this)
         finish()
+    }
+
+    override fun videoFetchedSuccess(item: VideoModel) {
+        startActivity(Intent(this, YoutubeDialogActivity::class.java)
+                .putExtra("ID", item.result!![0].key))
+        AnimationHelper.enterAnimation(this)
+    }
+
+    override fun videoFecthFailed(e: ErrorResponseModel) {
+        ErrorCodeHelper.handleResponseError(this, e)
+    }
+
+    override fun movieFetchSuccess(item: HomeModel) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun movieFetchFailed(e: ErrorResponseModel) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun moviePaginationSuccess(item: HomeModel) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun searchMovieSuccess(item: HomeModel) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun searchMovieFailed(e: ErrorResponseModel) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun addLoadingFooter() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun removeLoadingFooter() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

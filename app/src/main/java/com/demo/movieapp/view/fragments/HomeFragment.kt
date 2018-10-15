@@ -19,6 +19,7 @@ import com.cinnamon.utils.network.CinnamonNetwork
 import com.demo.movieapp.R
 import com.demo.movieapp.data.models.ErrorResponseModel
 import com.demo.movieapp.data.models.HomeModel
+import com.demo.movieapp.data.models.VideoModel
 import com.demo.movieapp.di.component.DaggerHomeComponent
 import com.demo.movieapp.di.module.HomeModule
 import com.demo.movieapp.domain.listeners.HomeAdapterClickListener
@@ -42,6 +43,7 @@ import kotlinx.android.synthetic.main.fragment_home.*
  */
 class HomeFragment : BaseFragment(), HomeView, HomeAdapterClickListener {
 
+
     @Inject
     lateinit var homePresenter: HomePresenter
 
@@ -49,7 +51,7 @@ class HomeFragment : BaseFragment(), HomeView, HomeAdapterClickListener {
     private lateinit var homeAdapter: HomeMainAdapter
     private lateinit var layoutManager: LinearLayoutManager
     private lateinit var homeModel: HomeModel
-    private lateinit var chosenFilter: String
+    private var chosenFilter: String = POPULAR
     private var loading = false
     private var noInternet = true
 
@@ -78,13 +80,13 @@ class HomeFragment : BaseFragment(), HomeView, HomeAdapterClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.get_popular)
         getPopularMovie()
     }
 
     override fun onResume() {
         super.onResume()
 
-        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.most_popular)
         (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
         requireActivity().invalidateOptionsMenu()
     }
@@ -211,8 +213,7 @@ class HomeFragment : BaseFragment(), HomeView, HomeAdapterClickListener {
     private fun getUpcomingMovie() {
         if (CinnamonNetwork.isNetworkAvailable(requireContext())) {
             homeProgressBar.visibility = View.VISIBLE
-            //TODO check error
-            //homePresenter.getUpcomingMovie(1)
+            homePresenter.getUpcomingMovie(1)
         }
     }
 
@@ -300,6 +301,14 @@ class HomeFragment : BaseFragment(), HomeView, HomeAdapterClickListener {
     }
 
     override fun searchMovieFailed(e: ErrorResponseModel) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun videoFetchedSuccess(item: VideoModel) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun videoFecthFailed(e: ErrorResponseModel) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

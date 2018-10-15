@@ -19,8 +19,9 @@ interface APIConstants {
         const val MOVIE_POPULAR = "3/movie/popular"
         const val MOVIE_NOW_PLAYING = "3/movie/now_playing"
         const val MOVIE_TOP_RATED = "3/movie/top_rated"
-        const val MOVIE_UPCOMING = "3//movie/upcoming"
+        const val MOVIE_UPCOMING = "3/movie/upcoming"
         const val SEARCH_MOVIE = "3/search/movie"
+        const val MOVIE_VIDEOS = "3/movie/{movie_id}/videos"
 
         const val apiKey = "c9f3368df47f1e3b16923681894bf09c"
         const val API_KEY = "api_key"

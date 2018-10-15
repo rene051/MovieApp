@@ -11,12 +11,15 @@ import com.demo.movieapp.data.api.APIConstants.Companion.MOVIE_NOW_PLAYING
 import com.demo.movieapp.data.api.APIConstants.Companion.MOVIE_POPULAR
 import com.demo.movieapp.data.api.APIConstants.Companion.MOVIE_TOP_RATED
 import com.demo.movieapp.data.api.APIConstants.Companion.MOVIE_UPCOMING
+import com.demo.movieapp.data.api.APIConstants.Companion.MOVIE_VIDEOS
 import com.demo.movieapp.data.api.APIConstants.Companion.PAGE
 import com.demo.movieapp.data.api.APIConstants.Companion.SEARCH
 import com.demo.movieapp.data.api.APIConstants.Companion.SEARCH_MOVIE
 import com.demo.movieapp.data.models.HomeModel
+import com.demo.movieapp.data.models.VideoModel
 import io.reactivex.Single
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 
@@ -40,5 +43,7 @@ interface MovieDatabaseApi {
     @GET(SEARCH_MOVIE)
     fun searchMovie(@Query(API_KEY) apiKey: String, @Query(SEARCH) search: String): Single<HomeModel>
 
+    @GET(MOVIE_VIDEOS)
+    fun getMovieVideos(@Path("movie_id") movie_id: String, @Query(API_KEY) apiKey: String ): Single<VideoModel>
 
 }

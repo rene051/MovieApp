@@ -66,6 +66,8 @@ class HomeModel : Serializable {
         @SerializedName("release_date")
         var releaseDate: String? = null
 
+        @SerializedName("key")
+        var key: String? = null
 
     }
 

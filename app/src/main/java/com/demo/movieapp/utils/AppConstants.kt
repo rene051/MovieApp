@@ -13,6 +13,8 @@ interface AppConstants {
 
     companion object {
 
+        const val YOUTUBE_API_KEY = "AIzaSyAo4W-5DppxoLJzqv9nrYW--8h-JYP-Ldc"
+
         //Item types
         const val MOVIE_TYPE = 1
         const val LOADING_ITEM_TYPE = 2

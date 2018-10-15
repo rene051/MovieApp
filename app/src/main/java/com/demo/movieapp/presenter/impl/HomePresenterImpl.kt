@@ -10,6 +10,7 @@ import android.content.Context
 import com.demo.movieapp.data.api.APIConstants.Companion.apiKey
 import com.demo.movieapp.data.api.NetworkApi
 import com.demo.movieapp.data.models.HomeModel
+import com.demo.movieapp.data.models.VideoModel
 import com.demo.movieapp.di.module.ThreadModule
 import com.demo.movieapp.domain.interactors.HomeInteractor
 import com.demo.movieapp.presenter.HomePresenter
@@ -137,7 +138,8 @@ constructor(private val context: Context, private val profileView: HomeView,
                         profileView.movieFetchFailed(ErrorCodeHelper.castErrorResponse(e))
                     }
 
-                })    }
+                })
+    }
 
     override fun searchMovies(search: String) {
         networkApi.searchMovies(apiKey, search)
@@ -154,6 +156,26 @@ constructor(private val context: Context, private val profileView: HomeView,
 
                     override fun onError(e: Throwable) {
                         profileView.searchMovieFailed(ErrorCodeHelper.castErrorResponse(e))
+                    }
+
+                })
+    }
+
+    override fun getMovieVideo(movieId: Int?) {
+        networkApi.getMovieVideos(movieId.toString(), apiKey )
+                .subscribeOn(subscribeScheduler)
+                .observeOn(observeScheduler)
+                .subscribe(object : SingleObserver<VideoModel> {
+                    override fun onSubscribe(d: Disposable) {
+
+                    }
+
+                    override fun onSuccess(t: VideoModel) {
+                        profileView.videoFetchedSuccess(t)
+                    }
+
+                    override fun onError(e: Throwable) {
+                        profileView.videoFecthFailed(ErrorCodeHelper.castErrorResponse(e))
                     }
 
                 })

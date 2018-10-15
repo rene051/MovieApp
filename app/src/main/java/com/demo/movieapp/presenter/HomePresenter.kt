@@ -21,4 +21,6 @@ interface HomePresenter: BasePresenter {
 
     fun searchMovies(search: String)
 
+    fun getMovieVideo(movieId: Int?)
+
 }

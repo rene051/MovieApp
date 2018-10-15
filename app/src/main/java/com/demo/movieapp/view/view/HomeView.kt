@@ -8,6 +8,7 @@ package com.demo.movieapp.view.view
 
 import com.demo.movieapp.data.models.ErrorResponseModel
 import com.demo.movieapp.data.models.HomeModel
+import com.demo.movieapp.data.models.VideoModel
 
 /**
  * Created by Rene on 04.05.18..
@@ -24,4 +25,7 @@ interface HomeView : DefaultView {
 
     fun searchMovieFailed(e: ErrorResponseModel)
 
+    fun videoFetchedSuccess(item: VideoModel)
+
+    fun videoFecthFailed(e: ErrorResponseModel)
 }

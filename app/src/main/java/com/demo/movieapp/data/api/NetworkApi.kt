@@ -24,4 +24,6 @@ interface NetworkApi {
 
     fun searchMovies(apiKey: String, search: String): Single<HomeModel>
 
+    fun getMovieVideos(movieId: String, apiKey: String): Single<VideoModel>
+
 }

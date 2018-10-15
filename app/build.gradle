@@ -89,12 +89,14 @@ dependencies {
     implementation dependencies.multidex
 
 
+
 //    implementation 'com.jakewharton:kotterknife:0.1.0-SNAPSHOT'
 
 //    implementation (dependencies.crashlytics) { transitive = true; }
 
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
 
+    implementation files('libs/YouTubeAndroidPlayerApi.jar')
     implementation 'com.google.android.gms:play-services-maps:15.0.1'
     implementation 'com.android.support:appcompat-v7:27.1.1'
     kapt dependencies.daggerCompiler

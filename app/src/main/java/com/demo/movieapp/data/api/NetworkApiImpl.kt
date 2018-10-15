@@ -7,6 +7,7 @@
 package com.demo.movieapp.data.api
 
 import com.demo.movieapp.data.models.HomeModel
+import com.demo.movieapp.data.models.VideoModel
 import io.reactivex.Single
 import javax.inject.Inject
 
@@ -35,5 +36,9 @@ constructor(private val movieDatabaseApi: MovieDatabaseApi) : NetworkApi {
 
     override fun searchMovies(apiKey: String, search: String): Single<HomeModel> {
         return Single.defer<HomeModel> { movieDatabaseApi.searchMovie(apiKey, search) }
+    }
+
+    override fun getMovieVideos(movieId: String, apiKey: String): Single<VideoModel> {
+        return Single.defer<VideoModel> { movieDatabaseApi.getMovieVideos(movieId, apiKey) }
     }
 }

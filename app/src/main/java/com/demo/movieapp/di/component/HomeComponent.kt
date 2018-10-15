@@ -8,6 +8,7 @@ package com.demo.movieapp.di.component
 
 import com.demo.movieapp.di.AppScope
 import com.demo.movieapp.di.module.HomeModule
+import com.demo.movieapp.view.activities.MovieItemActivity
 import com.demo.movieapp.view.fragments.HomeFragment
 import com.demo.movieapp.view.fragments.SearchFragment
 import dagger.Component
@@ -22,4 +23,6 @@ interface HomeComponent {
     fun inject(homeFragment: HomeFragment)
 
     fun inject(searchFragment: SearchFragment)
+
+    fun inject(activity: MovieItemActivity)
 }

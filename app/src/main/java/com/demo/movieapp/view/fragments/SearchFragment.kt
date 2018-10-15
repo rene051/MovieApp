@@ -15,6 +15,7 @@ import com.demo.movieapp.R
 import com.demo.movieapp.data.models.ErrorResponseModel
 import com.demo.movieapp.data.models.FavouriteModel
 import com.demo.movieapp.data.models.HomeModel
+import com.demo.movieapp.data.models.VideoModel
 import com.demo.movieapp.di.component.DaggerHomeComponent
 import com.demo.movieapp.di.module.HomeModule
 import com.demo.movieapp.domain.listeners.FavouriteAdapterClickListener
@@ -36,6 +37,7 @@ import kotlin.collections.ArrayList
  * Created by Rene on 22.06.18..
  */
 class SearchFragment : BaseFragment(), HomeView, FavouriteAdapterClickListener {
+
 
     @Inject
     lateinit var homePresenter: HomePresenter
@@ -171,6 +173,14 @@ class SearchFragment : BaseFragment(), HomeView, FavouriteAdapterClickListener {
     }
 
     override fun removeLoadingFooter() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun videoFetchedSuccess(item: VideoModel) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun videoFecthFailed(e: ErrorResponseModel) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }
