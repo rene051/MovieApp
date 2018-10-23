@@ -1,5 +1,6 @@
 package com.demo.movieapp.view.fragments
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -32,6 +33,9 @@ import kotlinx.android.synthetic.main.fragment_search.*
 import java.util.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList
+import android.content.Context.INPUT_METHOD_SERVICE
+import android.view.inputmethod.InputMethodManager
+
 
 /**
  * Created by Rene on 22.06.18..
@@ -132,6 +136,11 @@ class SearchFragment : BaseFragment(), HomeView, FavouriteAdapterClickListener {
 
         moviesRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         moviesRecyclerView.adapter = searchAdapter
+
+        moviesRecyclerView.setOnTouchListener { _, _ ->
+            val imm = activity!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(view!!.windowToken, 0)
+        }
     }
 
     private fun setMovieActivity(item: HomeModel.MovieModel) {

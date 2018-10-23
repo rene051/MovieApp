@@ -41,6 +41,7 @@ ext{
     jodaTimeVersion = '2.9.7'
     topDialogVersion = '1.11'
     multidexVersion = '1.0.1'
+    room_version = "2.1.0-alpha01"
 
     dependencies = [
                 daggerCompiler:     "com.google.dagger:dagger-compiler:${daggerVersion}",
@@ -74,6 +75,8 @@ ext{
                 jodaTime:           "joda-time:joda-time:${jodaTimeVersion}",
                 topDialog:          "com.orhanobut:dialogplus:${topDialogVersion}@aar",
                 multidex:           "com.android.support:multidex:${multidexVersion}",
+                roomImpl:           "androidx.room:room-runtime:${room_version}",
+                roomProcess:        "androidx.room:room-compiler:${room_version}",
             ]
 
 }

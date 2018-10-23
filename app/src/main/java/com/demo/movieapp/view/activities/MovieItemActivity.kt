@@ -7,6 +7,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.Window
 import android.widget.ImageView
+import android.widget.Toast
 import com.cinnamon.utils.date.CinnamonDate
 import com.demo.movieapp.R
 import com.demo.movieapp.data.api.APIConstants.Companion.IMAGE_BASE_URL
@@ -35,6 +36,7 @@ class MovieItemActivity : BaseActivity(), HomeView {
     lateinit var homePresenter: HomePresenter
 
     private var videoFetched: Boolean = false
+    private lateinit var sharedContentText: String
     private lateinit var youtubeKey: String
     private lateinit var shareIntent: Intent
     private lateinit var imagePreviewDialog: Dialog
@@ -103,6 +105,8 @@ class MovieItemActivity : BaseActivity(), HomeView {
                     startActivity(Intent(this, YoutubeDialogActivity::class.java)
                             .putExtra("ID", youtubeKey))
                     AnimationHelper.enterAnimation(this)
+                } else {
+                    Toast.makeText(this, "Video is not fetched!", Toast.LENGTH_SHORT).show()
                 }
             }
             R.id.action_favourite_movie -> {
@@ -113,7 +117,15 @@ class MovieItemActivity : BaseActivity(), HomeView {
                 shareIntent = Intent(Intent.ACTION_SEND)
 
                 shareIntent.type = "*/*"
-                shareIntent.putExtra(Intent.EXTRA_TEXT, movieItem.title + "\n\n" + movieItem.overview + "\n\n" + "https://www.youtube.com/watch?v=" + youtubeKey)
+
+                sharedContentText = if(::youtubeKey.isInitialized) {
+                    movieItem.title + "\n\n" + movieItem.overview + "\n\n" + "https://www.youtube.com/watch?v=" + youtubeKey
+                } else {
+                    movieItem.title + "\n\n" + movieItem.overview
+
+                }
+
+                shareIntent.putExtra(Intent.EXTRA_TEXT, sharedContentText)
                 startActivity(Intent.createChooser(shareIntent, "Share via"))
             }
         }
@@ -128,8 +140,10 @@ class MovieItemActivity : BaseActivity(), HomeView {
     }
 
     override fun videoFetchedSuccess(item: VideoModel) {
-        videoFetched = true
-        youtubeKey = item.result!![0].key!!
+        if(item.result?.size != null && item.result!!.size > 0) {
+            youtubeKey = item.result!![0].key!!
+            videoFetched = true
+        }
     }
 
     override fun videoFecthFailed(e: ErrorResponseModel) {
