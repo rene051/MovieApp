@@ -7,7 +7,14 @@
     android:background="@color/ColorWhite"
     tools:context=".view.activities.MovieItemActivity">
 
+    <include
+        android:id="@+id/movieItemToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/item_toolbar"/>
+
     <android.support.v4.widget.NestedScrollView
+        android:layout_below="@+id/movieItemToolbar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 

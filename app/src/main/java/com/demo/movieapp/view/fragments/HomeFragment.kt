@@ -36,8 +36,10 @@ import com.demo.movieapp.view.BaseFragment
 import com.demo.movieapp.view.activities.MovieItemActivity
 import com.demo.movieapp.view.adapters.HomeMainAdapter
 import com.demo.movieapp.view.view.HomeView
+import kotlinx.android.synthetic.main.activity_main_screen.*
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.item_toolbar.*
 
 /**
  * Created by Rene on 21.06.18.
@@ -80,14 +82,16 @@ class HomeFragment : BaseFragment(), HomeView, HomeAdapterClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        (activity as AppCompatActivity).setSupportActionBar(mainToolbar)
         (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.get_popular)
+
         getPopularMovie()
     }
 
     override fun onResume() {
         super.onResume()
 
-        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
+//        activity?.actionBar!!.setDisplayHomeAsUpEnabled(false)
         requireActivity().invalidateOptionsMenu()
     }
 

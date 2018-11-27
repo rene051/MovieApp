@@ -26,7 +26,9 @@ import com.demo.movieapp.view.BaseFragment
 import com.demo.movieapp.view.activities.AddNewFavouriteActivity
 import com.demo.movieapp.view.adapters.BottomSheetAddToFavouriteAdapter
 import com.demo.movieapp.view.adapters.FavouriteAdapter
+import kotlinx.android.synthetic.main.activity_main_screen.*
 import kotlinx.android.synthetic.main.fragment_favourite.*
+import kotlinx.android.synthetic.main.item_toolbar.*
 
 /**
  * Created by Rene on 21.06.18.
@@ -51,9 +53,10 @@ class FavouriteFragment : BaseFragment(), FavouriteAdapterClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        (activity as AppCompatActivity).supportActionBar!!.title = "Your favourites"
-        (activity as AppCompatActivity).supportActionBar?.elevation = 8F
+        (activity as AppCompatActivity).setSupportActionBar(mainToolbar)
 
+        mainToolbar.title = getString(R.string.your_favourites)
+//
         (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
         (activity as AppCompatActivity).supportActionBar?.setHomeButtonEnabled(false)
 

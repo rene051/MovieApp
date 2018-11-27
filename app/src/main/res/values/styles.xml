@@ -29,10 +29,12 @@
     <style name="AppThemeNoActionBarMain" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/ColorWhite</item>
-        <item name="colorPrimaryDark">@color/ColorBlack</item>
+        <item name="colorPrimaryDark">@color/ColorPrimary</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="colorAccent">@color/ColorWhite</item>
+        <item name="colorAccent">@color/ColorPrimary</item>
+        <item name="android:textColor">@color/ColorPrimary</item>
+        <item name="colorControlNormal">@color/ColorPrimary</item>
     </style>
 
 

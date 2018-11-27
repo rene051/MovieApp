@@ -11,11 +11,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/ColorWhite">
 
+    <include
+        android:id="@+id/favouriteToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/item_toolbar"/>
+
     <RelativeLayout
         android:id="@+id/mainFavouriteRelativeLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="visible"
+        android:layout_below="@+id/favouriteToolbar"
         >
 
         <android.support.v7.widget.RecyclerView

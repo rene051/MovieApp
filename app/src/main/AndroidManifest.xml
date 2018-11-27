@@ -33,7 +33,7 @@
         <activity
             android:name=".view.activities.MainScreenActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
+            android:theme="@style/AppThemeNoActionBarMain"
             android:windowSoftInputMode="adjustPan"/>
 
         <activity
@@ -54,7 +54,7 @@
         <activity
             android:name=".view.activities.MovieItemActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppThemeNoActionBarMain">
         </activity>
 
         <activity

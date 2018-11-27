@@ -18,7 +18,7 @@ import javax.inject.Inject
 class MainScreenPresenterImpl
 @Inject
 constructor(private val context: Context, private val mainScreenView: MainScreenView,
-            private val mainScreenInteractor: MainScreenInteractor) : MainScreenPresenter{
+            private val mainScreenInteractor: MainScreenInteractor) : MainScreenPresenter {
 
 
 

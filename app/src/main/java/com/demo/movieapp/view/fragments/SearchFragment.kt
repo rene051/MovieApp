@@ -35,6 +35,8 @@ import javax.inject.Inject
 import kotlin.collections.ArrayList
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.view.inputmethod.InputMethodManager
+import kotlinx.android.synthetic.main.activity_main_screen.*
+import kotlinx.android.synthetic.main.item_toolbar.*
 
 
 /**
@@ -74,6 +76,8 @@ class SearchFragment : BaseFragment(), HomeView, FavouriteAdapterClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        (activity as AppCompatActivity).setSupportActionBar(mainToolbar)
+
         setAdapter()
         clickListener()
     }
@@ -82,7 +86,7 @@ class SearchFragment : BaseFragment(), HomeView, FavouriteAdapterClickListener {
         super.onResume()
 
         (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.search_movies)
-        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
+
         requireActivity().invalidateOptionsMenu()
     }
 
@@ -118,6 +122,11 @@ class SearchFragment : BaseFragment(), HomeView, FavouriteAdapterClickListener {
         deleteImageView.setOnClickListener {
             searchEditText.setText("")
         }
+
+        moviesRecyclerView.setOnTouchListener { _, _ ->
+            val imm = activity!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(view!!.windowToken, 0)
+        }
     }
 
     override fun searchMovieSuccess(item: HomeModel) {
@@ -136,11 +145,6 @@ class SearchFragment : BaseFragment(), HomeView, FavouriteAdapterClickListener {
 
         moviesRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         moviesRecyclerView.adapter = searchAdapter
-
-        moviesRecyclerView.setOnTouchListener { _, _ ->
-            val imm = activity!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.hideSoftInputFromWindow(view!!.windowToken, 0)
-        }
     }
 
     private fun setMovieActivity(item: HomeModel.MovieModel) {

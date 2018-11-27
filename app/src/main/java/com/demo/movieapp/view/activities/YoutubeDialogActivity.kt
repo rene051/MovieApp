@@ -31,7 +31,7 @@ class YoutubeDialogActivity: YouTubeBaseActivity(), YouTubePlayer.OnInitializedL
 
     override fun onInitializationSuccess(p0: YouTubePlayer.Provider?, p1: YouTubePlayer?, p2: Boolean) {
         if (!p2) {
-            p1!!.loadVideo(intent.getStringExtra("ID")) // Plays https://www.youtube.com/watch?v=fhWaJi1Hsfo
+            p1!!.loadVideo(intent.getStringExtra(getString(R.string.id_caps))) // Plays https://www.youtube.com/watch?v=fhWaJi1Hsfo
         }
     }
 

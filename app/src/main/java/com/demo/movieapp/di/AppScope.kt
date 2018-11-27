@@ -11,7 +11,6 @@ import javax.inject.Scope
 /**
  * Created by Rene on 21.06.18.
  */
-@MustBeDocumented
 @Scope
 @Retention(AnnotationRetention.RUNTIME)
 annotation class AppScope

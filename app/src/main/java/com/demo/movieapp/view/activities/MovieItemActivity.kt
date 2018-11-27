@@ -3,6 +3,7 @@ package com.demo.movieapp.view.activities
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.Window
@@ -25,6 +26,7 @@ import com.demo.movieapp.view.fragments.BottomSheetAddFavouriteFragment
 import com.demo.movieapp.view.view.HomeView
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_movie.*
+import kotlinx.android.synthetic.main.item_toolbar.*
 import javax.inject.Inject
 
 /**
@@ -55,8 +57,11 @@ class MovieItemActivity : BaseActivity(), HomeView {
 
         movieItem = intent.getSerializableExtra(MOVIE_EXTRA) as HomeModel.MovieModel
 
-        supportActionBar!!.title = movieItem.title
+        setSupportActionBar(mainToolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = getString(R.string.get_popular)
+
+        mainToolbar.title = movieItem.title
         homePresenter.getMovieVideo(movieItem.id)
         setViews()
         onClickListeners()
@@ -103,10 +108,10 @@ class MovieItemActivity : BaseActivity(), HomeView {
             R.id.action_show_videos -> {
                 if(videoFetched) {
                     startActivity(Intent(this, YoutubeDialogActivity::class.java)
-                            .putExtra("ID", youtubeKey))
+                            .putExtra(getString(R.string.id_caps), youtubeKey))
                     AnimationHelper.enterAnimation(this)
                 } else {
-                    Toast.makeText(this, "Video is not fetched!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, getString(R.string.video_is_not_fetched), Toast.LENGTH_SHORT).show()
                 }
             }
             R.id.action_favourite_movie -> {
@@ -119,14 +124,14 @@ class MovieItemActivity : BaseActivity(), HomeView {
                 shareIntent.type = "*/*"
 
                 sharedContentText = if(::youtubeKey.isInitialized) {
-                    movieItem.title + "\n\n" + movieItem.overview + "\n\n" + "https://www.youtube.com/watch?v=" + youtubeKey
+                    movieItem.title + "\n\n" + movieItem.overview + "\n\n" + getString(R.string.youtube_base_link) + youtubeKey
                 } else {
                     movieItem.title + "\n\n" + movieItem.overview
 
                 }
 
                 shareIntent.putExtra(Intent.EXTRA_TEXT, sharedContentText)
-                startActivity(Intent.createChooser(shareIntent, "Share via"))
+                startActivity(Intent.createChooser(shareIntent, getString(R.string.share_via)))
             }
         }
         return super.onOptionsItemSelected(item)

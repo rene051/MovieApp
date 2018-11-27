@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.activity_main_screen.*
 /**
  * Created by Rene on 21.06.18.
  */
-class MainScreenActivity : BaseActivity(), MainScreenView {
+class  MainScreenActivity : BaseActivity(), MainScreenView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
